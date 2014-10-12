@@ -38,11 +38,13 @@ public class ViewManager {
     public void welcomeMessageView() {
         hideTitleOverlay();
         hideTakePictureOverlay();
+        hideCommentOverlay();
         showWelcomeOverlay();
     }
 
     public void takePictureView() {
         hideWelcomeOverlay();
+        hideCommentOverlay();
         showTitleOverlay(R.string.title_picture);
         showTakePictureOverlay();
     }
@@ -51,6 +53,7 @@ public class ViewManager {
         hideWelcomeOverlay();
         hideTakePictureOverlay();
         showTitleOverlay(R.string.title_comment);
+        showCommentOverlay();
     }
 
     public void showWelcomeOverlay() {
@@ -83,6 +86,16 @@ public class ViewManager {
 
     public void hideTakePictureOverlay() {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.takePictureOverlay);
+        welcomeOverlay.setVisibility(View.INVISIBLE);
+    }
+
+    public void showCommentOverlay() {
+        RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.commentOverlay);
+        welcomeOverlay.setVisibility(View.VISIBLE);
+    }
+
+    public void hideCommentOverlay() {
+        RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.commentOverlay);
         welcomeOverlay.setVisibility(View.INVISIBLE);
     }
 }

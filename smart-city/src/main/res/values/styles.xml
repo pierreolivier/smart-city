@@ -6,5 +6,6 @@
     </style>
 
     <color name="backgroundOverlayCamera">#8c000000</color>
+    <color name="hintColor">#ffa3a3a3</color>
 
 </resources>

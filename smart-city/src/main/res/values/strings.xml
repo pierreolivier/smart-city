@@ -11,4 +11,7 @@
 
     <string name="title_picture">take a picture</string>
     <string name="title_comment">comment</string>
+
+    <string name="comment_hint">comment…</string>
+    <string name="send_button">Send</string>
 </resources>
