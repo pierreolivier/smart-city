@@ -2,6 +2,7 @@ package com.smartcity.engine.manager;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.smartcity.R;
@@ -24,20 +25,31 @@ public class ViewManager {
                 takePictureView();
             }
         });
+
+        ImageView takePictureButton = (ImageView) Manager.activity().findViewById(R.id.takePictureButton);
+        takePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentView();
+            }
+        });
     }
 
     public void welcomeMessageView() {
         hideTitleOverlay();
+        hideTakePictureOverlay();
         showWelcomeOverlay();
     }
 
     public void takePictureView() {
         hideWelcomeOverlay();
         showTitleOverlay(R.string.title_picture);
+        showTakePictureOverlay();
     }
 
     public void commentView() {
         hideWelcomeOverlay();
+        hideTakePictureOverlay();
         showTitleOverlay(R.string.title_comment);
     }
 
@@ -62,5 +74,15 @@ public class ViewManager {
     public void hideTitleOverlay() {
         RelativeLayout titleOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.titleOverlay);
         titleOverlay.setVisibility(View.INVISIBLE);
+    }
+
+    public void showTakePictureOverlay() {
+        RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.takePictureOverlay);
+        welcomeOverlay.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTakePictureOverlay() {
+        RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.takePictureOverlay);
+        welcomeOverlay.setVisibility(View.INVISIBLE);
     }
 }
