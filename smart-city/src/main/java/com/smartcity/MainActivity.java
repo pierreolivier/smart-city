@@ -41,9 +41,23 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Manager.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        Manager.onStop();
+
+        super.onStop();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-        releaseCamera();              // release the camera immediately on pause event
+        releaseCamera();
     }
 
     @Override

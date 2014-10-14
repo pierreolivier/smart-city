@@ -8,6 +8,7 @@ import com.smartcity.MainActivity;
 public class Manager {
     private static MainActivity mMainActivity;
     private static ViewManager mViewManager;
+    private static LocationManager mLocationManager;
 
     public Manager() {
         super();
@@ -16,18 +17,32 @@ public class Manager {
     public static void onCreate(MainActivity mainActivity) {
         Manager.mMainActivity = mainActivity;
         Manager.mViewManager = new ViewManager();
+        Manager.mLocationManager = new LocationManager();
     }
 
     public static void onDestroy() {
         Manager.mMainActivity = null;
         Manager.mViewManager = null;
+        Manager.mLocationManager = null;
+    }
+
+    public static void onStart() {
+        Manager.mLocationManager.connect();
+    }
+
+    public static void onStop() {
+        Manager.mLocationManager.disconnect();
     }
 
     public static MainActivity activity() {
-        return mMainActivity;
+        return Manager.mMainActivity;
     }
 
     public static ViewManager view() {
-        return mViewManager;
+        return Manager.mViewManager;
+    }
+
+    public static LocationManager location() {
+        return Manager.mLocationManager;
     }
 }

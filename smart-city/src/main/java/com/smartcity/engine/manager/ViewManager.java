@@ -1,5 +1,7 @@
 package com.smartcity.engine.manager;
 
+import android.location.Location;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +25,8 @@ public class ViewManager {
             @Override
             public void onClick(View v) {
                 takePictureView();
+
+                Manager.location().startLocationUpdate();
             }
         });
 
