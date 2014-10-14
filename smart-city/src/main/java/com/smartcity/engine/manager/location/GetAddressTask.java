@@ -74,6 +74,8 @@ public class GetAddressTask extends AsyncTask<Location, Void, String> {
     protected void onPostExecute(String address) {
         Log.e("location test", address);
 
-        Manager.view().setPositionTextView(address);
+        if (Manager.view() != null) {
+            Manager.view().setPositionTextView(address);
+        }
     }
 }

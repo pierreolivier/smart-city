@@ -13,6 +13,10 @@ import com.smartcity.R;
  * Created by Pierre-Olivier on 12/10/2014.
  */
 public class ViewManager {
+    public enum Views {WELCOME, PICTURE, COMMENT}
+
+    private Views mCurrentView;
+
     protected ViewManager() {
         super();
     }
@@ -44,6 +48,8 @@ public class ViewManager {
         hideTakePictureOverlay();
         hideCommentOverlay();
         showWelcomeOverlay();
+
+        mCurrentView = Views.WELCOME;
     }
 
     public void takePictureView() {
@@ -51,6 +57,8 @@ public class ViewManager {
         hideCommentOverlay();
         showTitleOverlay(R.string.title_picture);
         showTakePictureOverlay();
+
+        mCurrentView = Views.PICTURE;
     }
 
     public void commentView() {
@@ -58,6 +66,8 @@ public class ViewManager {
         hideTakePictureOverlay();
         showTitleOverlay(R.string.title_comment);
         showCommentOverlay();
+
+        mCurrentView = Views.COMMENT;
     }
 
     public void showWelcomeOverlay() {
@@ -106,5 +116,16 @@ public class ViewManager {
     public void setPositionTextView(String address) {
         TextView textView = (TextView) Manager.activity().findViewById(R.id.positionTextView);
         textView.setText(address);
+    }
+
+    public boolean back() {
+        if (mCurrentView == Views.COMMENT) {
+            takePictureView();
+            return true;
+        } else if (mCurrentView == Views.PICTURE) {
+            return false;
+        } else {
+            return false;
+        }
     }
 }
