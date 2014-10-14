@@ -1,12 +1,18 @@
 package com.smartcity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,10 +76,8 @@ public class MainActivity extends ActionBarActivity {
 
         getSupportActionBar().hide();
 
-        // Create an instance of Camera
         loadCamera();
 
-        // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.cameraView);
         preview.addView(mPreview);
@@ -81,6 +85,8 @@ public class MainActivity extends ActionBarActivity {
         initLocation();
 
         Manager.view().init();
+
+        checkLocation();
     }
 
     @Override
@@ -88,6 +94,8 @@ public class MainActivity extends ActionBarActivity {
         super.onStart();
 
         Manager.onStart();
+
+        reloadCamera();
     }
 
     @Override
@@ -112,11 +120,11 @@ public class MainActivity extends ActionBarActivity {
     public static Camera getCameraInstance(){
         Camera c = null;
         try {
-            c = Camera.open(); // attempt to get a Camera instance
-        } catch (Exception e){
-            // Camera is not available (in use or does not exist)
+            c = Camera.open();
+        } catch (Exception e) {
+
         }
-        return c; // returns null if camera is unavailable
+        return c;
     }
 
     public void loadCamera() {
@@ -125,13 +133,69 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void reloadCamera() {
+        if (mCamera == null) {
+            loadCamera();
+
+            mPreview = new CameraPreview(this, mCamera);
+            FrameLayout preview = (FrameLayout) findViewById(R.id.cameraView);
+            preview.removeAllViews();
+            preview.addView(mPreview);
+        }
         mCamera.startPreview();
     }
 
     private void releaseCamera(){
         if (mCamera != null){
-            mCamera.release();        // release the camera for other applications
+            mCamera.release();
             mCamera = null;
+        }
+    }
+
+    private void checkLocation() {
+        LocationManager locationManager = null;
+        boolean gps = false;
+        boolean network = false;
+
+        if(locationManager == null) {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        try {
+            gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+
+        }
+
+        Log.e("location", "enable : " + gps);
+
+        try {
+            network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception e) {
+
+        }
+
+        if(!gps && !network){
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setCancelable(false);
+            dialog.setMessage(getResources().getString(R.string.gps_network_not_enabled));
+            dialog.setPositiveButton(getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+
+                    checkLocation();
+                }
+            });
+            dialog.setNegativeButton(getString(R.string.retry), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    checkLocation();
+                }
+            });
+            dialog.show();
+
         }
     }
 
@@ -140,12 +204,8 @@ public class MainActivity extends ActionBarActivity {
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 
         if (ConnectionResult.SUCCESS == resultCode) {
-            // In debug mode, log the status
             Log.e("Location Updates", "Google Play services is available.");
-            // Continue
             return true;
-            // Google Play services was not available for some reason.
-            // resultCode holds the error code.
         } else {
             Log.e("Location Updates", "Google Play services is NOT available." + resultCode);
 
@@ -166,6 +226,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onTakePicture() {
-        mCamera.takePicture(null, null, mPicture);
+        mCamera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean b, Camera camera) {
+                mCamera.takePicture(null, null, mPicture);
+            }
+        });
     }
 }
