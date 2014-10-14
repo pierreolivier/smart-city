@@ -32,26 +32,6 @@ public class MainActivity extends ActionBarActivity {
         public void onPictureTaken(final byte[] data, Camera camera) {
             final ImageView view = (ImageView) findViewById(R.id.cameraImage);
 
-            /*new Thread() {
-                public void run() {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(90);
-
-                    final Bitmap rotation = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.setImageBitmap(rotation);
-                            if(android.os.Build.VERSION.SDK_INT >= 11) {
-                                view.setAlpha(1.0f);
-                            }
-                        }
-                    });
-                }
-            }.start();*/
-
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             Matrix matrix = new Matrix();
             matrix.postRotate(90);
@@ -91,8 +71,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().hide();
 
         // Create an instance of Camera
-        mCamera = getCameraInstance();
-        mCamera.setDisplayOrientation(90);
+        loadCamera();
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
@@ -138,6 +117,15 @@ public class MainActivity extends ActionBarActivity {
             // Camera is not available (in use or does not exist)
         }
         return c; // returns null if camera is unavailable
+    }
+
+    public void loadCamera() {
+        mCamera = getCameraInstance();
+        mCamera.setDisplayOrientation(90);
+    }
+
+    public void reloadCamera() {
+        mCamera.startPreview();
     }
 
     private void releaseCamera(){

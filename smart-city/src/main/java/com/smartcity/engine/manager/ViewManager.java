@@ -55,6 +55,8 @@ public class ViewManager {
     }
 
     public void takePictureView() {
+        Manager.activity().reloadCamera();
+
         hideWelcomeOverlay();
         hideCommentOverlay();
         showTitleOverlay(R.string.title_picture);
