@@ -38,6 +38,8 @@ public class ViewManager {
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Manager.activity().onTakePicture();
+
                 commentView();
             }
         });
@@ -111,6 +113,11 @@ public class ViewManager {
     public void hideCommentOverlay() {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.commentOverlay);
         welcomeOverlay.setVisibility(View.INVISIBLE);
+
+        ImageView view = (ImageView) Manager.activity().findViewById(R.id.cameraImage);
+        if(android.os.Build.VERSION.SDK_INT >= 11) {
+            view.setAlpha(0.0f);
+        }
     }
 
     public void setPositionTextView(String address) {

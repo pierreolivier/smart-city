@@ -1,20 +1,84 @@
 package com.smartcity;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.smartcity.engine.manager.Manager;
 import com.smartcity.engine.view.CameraPreview;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 
 public class MainActivity extends ActionBarActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
+
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(final byte[] data, Camera camera) {
+            final ImageView view = (ImageView) findViewById(R.id.cameraImage);
+
+            /*new Thread() {
+                public void run() {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+
+                    final Bitmap rotation = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setImageBitmap(rotation);
+                            if(android.os.Build.VERSION.SDK_INT >= 11) {
+                                view.setAlpha(1.0f);
+                            }
+                        }
+                    });
+                }
+            }.start();*/
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+
+            Bitmap rotation = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            view.setImageBitmap(rotation);
+            if(android.os.Build.VERSION.SDK_INT >= 11) {
+                view.setAlpha(1.0f);
+            }
+
+            File pictureFile = new File(getFilesDir(), "image.jpg");
+            if (pictureFile == null){
+                Log.e("image", "Error creating media file, check storage permissions");
+                return;
+            }
+
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+            } catch (FileNotFoundException e) {
+                Log.e("image", "File not found: " + e.getMessage());
+            } catch (IOException e) {
+                Log.e("image", "Error accessing file: " + e.getMessage());
+            }
+       }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +172,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        // moveTaskToBack(true);
         if (!Manager.view().back()) {
             super.onBackPressed();
         }
+    }
+
+    public void onTakePicture() {
+        mCamera.takePicture(null, null, mPicture);
     }
 }
