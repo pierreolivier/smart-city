@@ -9,6 +9,7 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.smartcity.engine.manager.location.GetAddressTask;
 
 /**
  * Created by po on 10/14/14.
@@ -23,6 +24,7 @@ public class LocationManager implements
 
     private LocationClient mLocationClient;
     private final LocationRequest mLocationRequest;
+    private Location mLastLocation;
 
     public LocationManager() {
         super();
@@ -79,14 +81,16 @@ public class LocationManager implements
     }
 
     public Location getLastLocation() {
-        return mLocationClient.getLastLocation();
+        return mLastLocation;
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
+        String msg = "Updated Location: " + Double.toString(location.getLatitude()) + "," + Double.toString(location.getLongitude());
+
+        mLastLocation = location;
+
+        new GetAddressTask().execute(mLastLocation);
 
         Log.v("location test", msg);
     }

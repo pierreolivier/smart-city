@@ -102,4 +102,9 @@ public class ViewManager {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.commentOverlay);
         welcomeOverlay.setVisibility(View.INVISIBLE);
     }
+
+    public void setPositionTextView(String address) {
+        TextView textView = (TextView) Manager.activity().findViewById(R.id.positionTextView);
+        textView.setText(address);
+    }
 }
