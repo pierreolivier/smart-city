@@ -1,5 +1,8 @@
 package com.smartcity.engine.manager;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -120,12 +123,13 @@ public class ViewManager {
     public void flashLayout() {
         RelativeLayout flashLayout = (RelativeLayout) Manager.activity().findViewById(R.id.flashAnimationLayout);
 
-        ColorDrawable[] color = {new ColorDrawable(Color.argb(100, 255, 255, 255)), new ColorDrawable(Color.argb(0, 255, 255, 255))};
-        TransitionDrawable trans = new TransitionDrawable(color);
-
-        if(android.os.Build.VERSION.SDK_INT >= 16) {
-            flashLayout.setBackground(trans);
-            trans.startTransition(500);
+        if(android.os.Build.VERSION.SDK_INT >= 11) {
+            int start = Color.argb(200, 255, 255, 255);
+            int end = Color.argb(0, 255, 255, 255);
+            ValueAnimator valueAnimator = ObjectAnimator.ofInt(flashLayout, "backgroundColor", start, end);
+            valueAnimator.setDuration(1300);
+            valueAnimator.setEvaluator(new ArgbEvaluator());
+            valueAnimator.start();
         }
     }
 

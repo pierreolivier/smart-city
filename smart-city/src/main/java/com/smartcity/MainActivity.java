@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -231,7 +232,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onTakePicture() {
-        Manager.view().flashLayout();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Manager.view().flashLayout();
+            }
+        }, 300);
 
         mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
