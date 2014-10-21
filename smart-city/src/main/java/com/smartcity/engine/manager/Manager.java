@@ -1,5 +1,8 @@
 package com.smartcity.engine.manager;
 
+import android.content.Context;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import com.smartcity.MainActivity;
 
 /**
@@ -44,5 +47,15 @@ public class Manager {
 
     public static LocationManager location() {
         return Manager.mLocationManager;
+    }
+
+    public static String getAndroidId() {
+        return Settings.Secure.getString(Manager.mMainActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static String getPhoneNumber() {
+        TelephonyManager telephonyManager = (TelephonyManager) Manager.mMainActivity.getSystemService(Context.TELEPHONY_SERVICE);
+        String phoneNumber = telephonyManager.getLine1Number();
+        return (phoneNumber == null ? "" : phoneNumber);
     }
 }

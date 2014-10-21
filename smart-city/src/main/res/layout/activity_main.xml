@@ -86,6 +86,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
+        <RelativeLayout
+            android:id="@+id/flashAnimationLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            </RelativeLayout>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -96,9 +102,6 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/take_picture" />
     </RelativeLayout>
-
-
-
 
     <RelativeLayout
         android:id="@+id/commentOverlay"

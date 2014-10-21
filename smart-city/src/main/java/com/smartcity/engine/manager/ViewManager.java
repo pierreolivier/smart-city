@@ -1,5 +1,8 @@
 package com.smartcity.engine.manager;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.location.Location;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,8 @@ public class ViewManager {
     public enum Views {WELCOME, PICTURE, COMMENT}
 
     private Views mCurrentView;
+
+    private boolean mTakePictureDisable;
 
     protected ViewManager() {
         super();
@@ -38,9 +43,13 @@ public class ViewManager {
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Manager.activity().onTakePicture();
+                if (!mTakePictureDisable) {
+                    Manager.activity().onTakePicture();
 
-                commentView();
+                    // commentView();
+
+                    mTakePictureDisable = true;
+                }
             }
         });
     }
@@ -63,6 +72,7 @@ public class ViewManager {
         showTakePictureOverlay();
 
         mCurrentView = Views.PICTURE;
+        mTakePictureDisable = false;
     }
 
     public void commentView() {
@@ -105,6 +115,18 @@ public class ViewManager {
     public void hideTakePictureOverlay() {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.takePictureOverlay);
         welcomeOverlay.setVisibility(View.INVISIBLE);
+    }
+
+    public void flashLayout() {
+        RelativeLayout flashLayout = (RelativeLayout) Manager.activity().findViewById(R.id.flashAnimationLayout);
+
+        ColorDrawable[] color = {new ColorDrawable(Color.argb(100, 255, 255, 255)), new ColorDrawable(Color.argb(0, 255, 255, 255))};
+        TransitionDrawable trans = new TransitionDrawable(color);
+
+        if(android.os.Build.VERSION.SDK_INT >= 16) {
+            flashLayout.setBackground(trans);
+            trans.startTransition(500);
+        }
     }
 
     public void showCommentOverlay() {

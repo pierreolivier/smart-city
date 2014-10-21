@@ -63,6 +63,8 @@ public class MainActivity extends ActionBarActivity {
             } catch (IOException e) {
                 Log.e("image", "Error accessing file: " + e.getMessage());
             }
+
+            Manager.view().commentView();
        }
     };
 
@@ -87,6 +89,9 @@ public class MainActivity extends ActionBarActivity {
         Manager.view().init();
 
         checkLocation();
+
+        Log.e("phone", "phonenumber: " + Manager.getPhoneNumber());
+        Log.e("phone", "android id: " + Manager.getAndroidId());
     }
 
     @Override
@@ -226,6 +231,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onTakePicture() {
+        Manager.view().flashLayout();
+
         mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean b, Camera camera) {
