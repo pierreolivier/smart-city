@@ -17,27 +17,6 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:id="@+id/titleOverlay"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
-        android:background="@color/backgroundOverlayCamera">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/titleOverlayTextView"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"/>
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/welcomeOverlay"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
@@ -177,6 +156,27 @@
                 android:textCursorDrawable="@null"/>
         </RelativeLayout>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/titleOverlay"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:background="@color/backgroundOverlayCamera">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/titleOverlayTextView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"/>
     </RelativeLayout>
 
 </RelativeLayout>

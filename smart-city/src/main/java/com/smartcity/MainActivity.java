@@ -91,6 +91,8 @@ public class MainActivity extends ActionBarActivity {
 
         checkLocation();
 
+        Manager.view().promptServer();
+
         Log.e("phone", "phonenumber: " + Manager.getPhoneNumber());
         Log.e("phone", "android id: " + Manager.getAndroidId());
     }

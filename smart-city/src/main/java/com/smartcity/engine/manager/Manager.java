@@ -12,6 +12,7 @@ public class Manager {
     private static MainActivity mMainActivity;
     private static ViewManager mViewManager;
     private static LocationManager mLocationManager;
+    private static NetworkManager mNetworkManager;
 
     public Manager() {
         super();
@@ -21,12 +22,14 @@ public class Manager {
         Manager.mMainActivity = mainActivity;
         Manager.mViewManager = new ViewManager();
         Manager.mLocationManager = new LocationManager();
+        Manager.mNetworkManager = new NetworkManager();
     }
 
     public static void onDestroy() {
         Manager.mMainActivity = null;
         Manager.mViewManager = null;
         Manager.mLocationManager = null;
+        Manager.mNetworkManager = null;
     }
 
     public static void onStart() {
@@ -47,6 +50,10 @@ public class Manager {
 
     public static LocationManager location() {
         return Manager.mLocationManager;
+    }
+
+    public static NetworkManager network() {
+        return Manager.mNetworkManager;
     }
 
     public static String getAndroidId() {

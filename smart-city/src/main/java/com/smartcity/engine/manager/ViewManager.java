@@ -3,16 +3,15 @@ package com.smartcity.engine.manager;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.location.Location;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.smartcity.R;
 
 /**
@@ -162,5 +161,33 @@ public class ViewManager {
         } else {
             return false;
         }
+    }
+
+    public void promptServer() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(Manager.activity());
+        alert.setTitle("Server");
+        alert.setMessage("Server address :");
+
+        final EditText input = new EditText(Manager.activity());
+        input.setText("http://pierreolivier.me:5001");
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+
+                Manager.network().setServer(value);
+            }
+        });
+
+        alert.setNegativeButton("Default", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Manager.network().setServer("http://pierreolivier.me:5001");
+            }
+        });
+
+        alert.setCancelable(false);
+
+        alert.show();
     }
 }
