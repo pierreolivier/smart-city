@@ -102,8 +102,8 @@
         <RelativeLayout
             android:id="@+id/commentBox"
             android:layout_width="fill_parent"
-            android:layout_height="140dp"
-            android:background="@color/backgroundOverlayCamera"
+            android:layout_height="200dp"
+            android:background="#8c4b4b4b"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -121,11 +121,11 @@
                 android:layout_alignBottom="@+id/sendButton"
                 android:layout_alignLeft="@+id/editText"
                 android:layout_alignStart="@+id/editText"
-                android:layout_below="@+id/editText"
                 android:layout_toLeftOf="@+id/sendButton"
                 android:layout_toStartOf="@+id/sendButton"
                 android:gravity="center_vertical"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/types_spinner" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -139,11 +139,10 @@
 
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/editText"
-                android:layout_above="@+id/sendButton"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignRight="@+id/sendButton"
@@ -154,6 +153,16 @@
                 android:hint="@string/comment_hint"
                 android:textColorHint="@color/hintColor"
                 android:textCursorDrawable="@null"/>
+
+            <Spinner
+                android:id="@+id/types_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editText"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/sendButton"
+                android:textColor="#FFFFFF"/>
         </RelativeLayout>
 
     </RelativeLayout>

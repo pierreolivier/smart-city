@@ -112,6 +112,11 @@ public class ViewManager {
     public void showTakePictureOverlay() {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.takePictureOverlay);
         welcomeOverlay.setVisibility(View.VISIBLE);
+
+        Spinner spinner = (Spinner) Manager.activity().findViewById(R.id.types_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Manager.activity(), R.array.types_array, R.layout.type_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     public void hideTakePictureOverlay() {
