@@ -31,7 +31,7 @@ public class ViewManager {
     public void init() {
         welcomeMessageView();
 
-        Button startButton = (Button) Manager.activity().findViewById(R.id.welcomeButton);
+        TextView startButton = (TextView) Manager.activity().findViewById(R.id.welcomeButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

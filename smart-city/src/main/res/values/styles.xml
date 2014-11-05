@@ -7,5 +7,6 @@
 
     <color name="backgroundOverlayCamera">#8c000000</color>
     <color name="hintColor">#ffa3a3a3</color>
+    <color name="backgroundOverlayCamera5">#FFFFFF</color>
 
 </resources>

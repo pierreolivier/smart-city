@@ -7,13 +7,13 @@
 
     <string name="welcome_title">Welcome to Smart City</string>
     <string name="welcome_message">Long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text </string>
-    <string name="welcome_button">Start</string>
+    <string name="welcome_button">START</string>
 
     <string name="title_picture">take a picture</string>
     <string name="title_comment">comment</string>
 
     <string name="comment_hint">comment…</string>
-    <string name="send_button">Send</string>
+    <string name="send_button">SEND</string>
 
     <string name="gps_network_not_enabled">The location service or the network are not enabled !</string>
     <string name="open_location_settings">Settings</string>
