@@ -54,6 +54,14 @@ public class ViewManager {
                 }
             }
         });
+
+        TextView sendButton = (TextView) Manager.activity().findViewById(R.id.sendButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Manager.network().sendComment("lol", Manager.location().getLastLocation(), "lol2", (ProgressBar) Manager.activity().findViewById(R.id.progressBar));
+            }
+        });
     }
 
     public void welcomeMessageView() {
