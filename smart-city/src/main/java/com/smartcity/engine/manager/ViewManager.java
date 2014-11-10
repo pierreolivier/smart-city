@@ -182,7 +182,7 @@ public class ViewManager {
         alert.setMessage("Server address :");
 
         final EditText input = new EditText(Manager.activity());
-        input.setText("http://pierreolivier.me:5001");
+        input.setText("http://192.168.1.152:5001");
         alert.setView(input);
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -195,7 +195,7 @@ public class ViewManager {
 
         alert.setNegativeButton("Default", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                Manager.network().setServer("http://pierreolivier.me:5001");
+                Manager.network().setServer("http://192.168.1.152:5001");
             }
         });
 

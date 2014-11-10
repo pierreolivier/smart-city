@@ -30,9 +30,9 @@ public class NetworkManager {
 
     public void sendComment(String comment, Location location, String address, final ProgressBar p) {
         p.setIndeterminate(false);
-
+        // "https://koush.clockworkmod.com/test/echo"
         Ion.with(Manager.activity())
-            .load("https://koush.clockworkmod.com/test/echo")
+            .load(server + "/report/add")
             .uploadProgressBar(p)
             .uploadProgressHandler(new ProgressCallback() {
                 @Override
