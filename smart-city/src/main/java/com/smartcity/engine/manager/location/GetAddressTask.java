@@ -1,6 +1,5 @@
 package com.smartcity.engine.manager.location;
 
-import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -75,6 +74,10 @@ public class GetAddressTask extends AsyncTask<Location, Void, String> {
 
         if (Manager.view() != null) {
             Manager.view().setPositionTextView(address);
+        }
+
+        if (Manager.location() != null) {
+            Manager.location().setLastLocationAddress(address);
         }
     }
 }

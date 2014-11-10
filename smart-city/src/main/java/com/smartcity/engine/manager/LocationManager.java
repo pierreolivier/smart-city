@@ -14,10 +14,7 @@ import com.smartcity.engine.manager.location.GetAddressTask;
 /**
  * Created by po on 10/14/14.
  */
-public class LocationManager implements
-        GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener,
-        LocationListener {
+public class LocationManager implements GooglePlayServicesClient.ConnectionCallbacks,  GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
     private static final long UPDATE_INTERVAL = 10 * 1000;
     private static final long FASTEST_INTERVAL = 3 * 1000;
@@ -25,6 +22,7 @@ public class LocationManager implements
     private LocationClient mLocationClient;
     private final LocationRequest mLocationRequest;
     private Location mLastLocation;
+    private String mLastLocationAddress;
 
     public LocationManager() {
         super();
@@ -80,10 +78,6 @@ public class LocationManager implements
         }
     }
 
-    public Location getLastLocation() {
-        return mLastLocation;
-    }
-
     @Override
     public void onLocationChanged(Location location) {
         String msg = "Updated Location: " + Double.toString(location.getLatitude()) + "," + Double.toString(location.getLongitude());
@@ -93,5 +87,17 @@ public class LocationManager implements
         new GetAddressTask().execute(mLastLocation);
 
         Log.v("location test", msg);
+    }
+
+    public Location getLastLocation() {
+        return mLastLocation;
+    }
+
+    public String getLastLocationAddress() {
+        return mLastLocationAddress;
+    }
+
+    public void setLastLocationAddress(String mLastLocationAddress) {
+        this.mLastLocationAddress = mLastLocationAddress;
     }
 }

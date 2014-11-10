@@ -4,12 +4,9 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.location.Location;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.smartcity.R;
@@ -59,7 +56,16 @@ public class ViewManager {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Manager.network().sendComment("lol", Manager.location().getLastLocation(), "lol2", (ProgressBar) Manager.activity().findViewById(R.id.progressBar));
+                ProgressDialog p = new ProgressDialog(Manager.activity());
+                p.setTitle(R.string.dialog_title);
+                p.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                p.setCancelable(false);
+                p.show();
+
+                EditText comment = (EditText) Manager.activity().findViewById(R.id.commentEditText);
+                Spinner spinner = (Spinner) Manager.activity().findViewById(R.id.types_spinner);
+
+                Manager.network().sendComment(comment.getText().toString(), Manager.location().getLastLocation(), Manager.location().getLastLocationAddress(), spinner.getSelectedItem().toString(), p);
             }
         });
     }

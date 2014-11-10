@@ -14,14 +14,16 @@
 
     <string name="comment_hint">comment…</string>
     <string name="send_button">SEND</string>
+    <string name="dialog_title">Uploading</string>
+    <string name="dialog_message">We are uploading your comment…</string>
 
     <string name="gps_network_not_enabled">The location service or the network are not enabled !</string>
     <string name="open_location_settings">Settings</string>
     <string name="retry">Retry</string>
 
     <string-array name="types_array">
-        <item>Type...</item>
-        <item>type 1</item>
-        <item>type 2</item>
+        <item>Select a type</item>
+        <item>Type 1</item>
+        <item>Type 2</item>
     </string-array>
 </resources>

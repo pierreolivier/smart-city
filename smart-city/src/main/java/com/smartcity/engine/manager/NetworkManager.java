@@ -1,5 +1,6 @@
 package com.smartcity.engine.manager;
 
+import android.app.ProgressDialog;
 import android.location.Location;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -28,12 +29,12 @@ public class NetworkManager {
         return server;
     }
 
-    public void sendComment(String comment, Location location, String address, final ProgressBar p) {
+    public void sendComment(String comment, Location location, String address, String type, final ProgressDialog p) {
         p.setIndeterminate(false);
         // "https://koush.clockworkmod.com/test/echo"
         Ion.with(Manager.activity())
             .load(server + "/report/add")
-            .uploadProgressBar(p)
+            .uploadProgressDialog(p)
             .uploadProgressHandler(new ProgressCallback() {
                 @Override
                 public void onProgress(long uploaded, long total) {
@@ -41,12 +42,20 @@ public class NetworkManager {
                     Log.e("progress", uploaded + " " + total);
                 }
             })
-            .setMultipartParameter("goop", "noop")
-            .setMultipartFile("filename.zip", new File(Manager.activity().getFilesDir().getPath() + "/image.jpg"))
+            .setMultipartParameter("comment", comment)
+            .setMultipartParameter("latitude", "" + location.getLatitude())
+            .setMultipartParameter("longitude", "" + location.getLongitude())
+            .setMultipartParameter("address", address)
+            .setMultipartParameter("type", type)
+            .setMultipartParameter("android_id", Manager.getAndroidId())
+            .setMultipartParameter("phone_number", Manager.getPhoneNumber())
+            .setMultipartFile("picture", new File(Manager.activity().getFilesDir().getPath() + "/image.jpg"))
             .asString()
             .setCallback(new FutureCallback<String>() {
                 @Override
                 public void onCompleted(Exception e, String result) {
+                    p.hide();
+
                     if (e != null) {
                         e.printStackTrace();
                     } else {
