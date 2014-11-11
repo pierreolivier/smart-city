@@ -17,7 +17,7 @@ import java.io.File;
  * Created by Pierre-Olivier on 31/10/2014.
  */
 public class NetworkManager {
-    public static final String DEFAULT_SERVER = "http://192.168.1.152:5001";
+    public static final String DEFAULT_SERVER = "http://smartcity.pierreolivier.me";
 
     private String server;
 
