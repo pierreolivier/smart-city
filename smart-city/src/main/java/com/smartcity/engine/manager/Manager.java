@@ -65,4 +65,6 @@ public class Manager {
         String phoneNumber = telephonyManager.getLine1Number();
         return (phoneNumber == null ? "" : phoneNumber);
     }
+
+
 }

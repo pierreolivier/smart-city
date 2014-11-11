@@ -26,4 +26,12 @@
         <item>Type 1</item>
         <item>Type 2</item>
     </string-array>
+
+    <string name="server_error_dialog_title">Server error</string>
+    <string name="server_error_dialog_message">An error occurred, please retry.</string>
+    <string name="banned_user_dialog_message">You are banned from Smart City.</string>
+
+    <string name="quit_title">Thank you !</string>
+    <string name="quit_message">Long text long text long text long text long text long text long</string>
+    <string name="quit_button">QUIT</string>
 </resources>

@@ -15,7 +15,7 @@ import com.smartcity.R;
  * Created by Pierre-Olivier on 12/10/2014.
  */
 public class ViewManager {
-    public enum Views {WELCOME, PICTURE, COMMENT}
+    public enum Views {WELCOME, PICTURE, COMMENT, QUIT}
 
     private Views mCurrentView;
 
@@ -68,12 +68,21 @@ public class ViewManager {
                 Manager.network().sendComment(comment.getText().toString(), Manager.location().getLastLocation(), Manager.location().getLastLocationAddress(), spinner.getSelectedItem().toString(), p);
             }
         });
+
+        TextView quitButton = (TextView) Manager.activity().findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Manager.activity().finish();
+            }
+        });
     }
 
     public void welcomeMessageView() {
         hideTitleOverlay();
         hideTakePictureOverlay();
         hideCommentOverlay();
+        hideEndOverlay();
         showWelcomeOverlay();
 
         mCurrentView = Views.WELCOME;
@@ -84,6 +93,7 @@ public class ViewManager {
 
         hideWelcomeOverlay();
         hideCommentOverlay();
+        hideEndOverlay();
         showTitleOverlay(R.string.title_picture);
         showTakePictureOverlay();
 
@@ -94,10 +104,21 @@ public class ViewManager {
     public void commentView() {
         hideWelcomeOverlay();
         hideTakePictureOverlay();
+        hideEndOverlay();
         showTitleOverlay(R.string.title_comment);
         showCommentOverlay();
 
         mCurrentView = Views.COMMENT;
+    }
+
+    public void endView() {
+        hideWelcomeOverlay();
+        hideTakePictureOverlay();
+        hideCommentOverlay();
+        hideTitleOverlay();
+        showEndOverlay();
+
+        mCurrentView = Views.QUIT;
     }
 
     public void showWelcomeOverlay() {
@@ -108,6 +129,16 @@ public class ViewManager {
     public void hideWelcomeOverlay() {
         RelativeLayout welcomeOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.welcomeOverlay);
         welcomeOverlay.setVisibility(View.INVISIBLE);
+    }
+
+    public void showEndOverlay() {
+        RelativeLayout endOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.endOverlay);
+        endOverlay.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEndOverlay() {
+        RelativeLayout endOverlay = (RelativeLayout) Manager.activity().findViewById(R.id.endOverlay);
+        endOverlay.setVisibility(View.INVISIBLE);
     }
 
     public void showTitleOverlay(int resId) {
@@ -172,7 +203,9 @@ public class ViewManager {
     }
 
     public boolean back() {
-        if (mCurrentView == Views.COMMENT) {
+        if (mCurrentView == Views.QUIT) {
+            return true;
+        } else if (mCurrentView == Views.COMMENT) {
             takePictureView();
             return true;
         } else if (mCurrentView == Views.PICTURE) {
@@ -188,7 +221,7 @@ public class ViewManager {
         alert.setMessage("Server address :");
 
         final EditText input = new EditText(Manager.activity());
-        input.setText("http://192.168.1.152:5001");
+        input.setText(Manager.network().loadServer());
         alert.setView(input);
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -196,12 +229,46 @@ public class ViewManager {
                 String value = input.getText().toString();
 
                 Manager.network().setServer(value);
+
+                Manager.network().saveServer(value);
             }
         });
 
         alert.setNegativeButton("Default", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                Manager.network().setServer("http://192.168.1.152:5001");
+                Manager.network().setServer(NetworkManager.DEFAULT_SERVER);
+            }
+        });
+
+        alert.setCancelable(false);
+
+        alert.show();
+    }
+
+    public void showServerError() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(Manager.activity());
+        alert.setTitle(R.string.server_error_dialog_title);
+        alert.setMessage(R.string.server_error_dialog_message);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+
+        alert.setCancelable(false);
+
+        alert.show();
+    }
+
+    public void showBannedUser() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(Manager.activity());
+        alert.setTitle(R.string.server_error_dialog_title);
+        alert.setMessage(R.string.banned_user_dialog_message);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Manager.activity().finish();
             }
         });
 
