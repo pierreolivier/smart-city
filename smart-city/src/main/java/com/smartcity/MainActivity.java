@@ -242,11 +242,13 @@ public class MainActivity extends ActionBarActivity {
             }
         }, 300);
 
-        mCamera.autoFocus(new Camera.AutoFocusCallback() {
-            @Override
-            public void onAutoFocus(boolean b, Camera camera) {
-                mCamera.takePicture(null, null, mPicture);
-            }
-        });
+        if (mCamera != null) {
+            mCamera.autoFocus(new Camera.AutoFocusCallback() {
+                @Override
+                public void onAutoFocus(boolean b, Camera camera) {
+                    mCamera.takePicture(null, null, mPicture);
+                }
+            });
+        }
     }
 }
