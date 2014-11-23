@@ -75,7 +75,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.setParameters(parameters);
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
-
+            Log.e("size", "" + mPreviewSize.height);
         } catch (Exception e){
             Log.d("", "Error starting camera preview: " + e.getMessage());
         }
@@ -91,12 +91,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
 
         float ratio;
-        if(mPreviewSize.height >= mPreviewSize.width)
+        if (mPreviewSize.height >= mPreviewSize.width)
             ratio = (float) mPreviewSize.height / (float) mPreviewSize.width;
         else
             ratio = (float) mPreviewSize.width / (float) mPreviewSize.height;
 
-        setMeasuredDimension(width, (int) (width * ratio));
+        setMeasuredDimension((int) (width * 1.18), (int) (width * ratio * 1.18));
     }
 
     private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
