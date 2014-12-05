@@ -35,6 +35,7 @@ public class ViewManager {
                 takePictureView();
 
                 Manager.location().startLocationUpdate();
+                //Manager.network().postData();
             }
         });
 
@@ -65,7 +66,7 @@ public class ViewManager {
                 EditText comment = (EditText) Manager.activity().findViewById(R.id.commentEditText);
                 Spinner spinner = (Spinner) Manager.activity().findViewById(R.id.types_spinner);
 
-                Manager.network().sendComment(comment.getText().toString(), Manager.location().getLastLocation(), Manager.location().getLastLocationAddress(), spinner.getSelectedItem().toString(), p);
+                Manager.network().sendComment2(comment.getText().toString(), Manager.location().getLastLocation(), Manager.location().getLastLocationAddress(), spinner.getSelectedItem().toString(), p);
             }
         });
 

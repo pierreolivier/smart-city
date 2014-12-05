@@ -29,7 +29,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.smartcity.engine.manager.Manager;
-import com.smartcity.engine.view.AutoFitTextureView;
+//import com.smartcity.engine.view.AutoFitTextureView;
 import com.smartcity.engine.view.CameraPreview;
 
 import java.io.File;
