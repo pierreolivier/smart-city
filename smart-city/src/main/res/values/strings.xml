@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="welcome_title">Welcome to Smart City</string>
-    <string name="welcome_message">Long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text </string>
+    <string name="welcome_message">This service has been created to allow citizen to help the city solving every day life incidents.</string>
     <string name="welcome_button">START</string>
 
     <string name="title_picture">take a picture</string>
@@ -17,14 +17,15 @@
     <string name="dialog_title">Uploading</string>
     <string name="dialog_message">We are uploading your comment…</string>
 
-    <string name="gps_network_not_enabled">The location service or the network are not enabled !</string>
+    <string name="gps_network_not_enabled">The location service or the network is not enabled!</string>
     <string name="open_location_settings">Settings</string>
     <string name="retry">Retry</string>
 
     <string-array name="types_array">
         <item>Select a type</item>
-        <item>Type 1</item>
-        <item>Type 2</item>
+        <item>Something on the road</item>
+        <item>Graffiti</item>
+        <item>Street light</item>
     </string-array>
 
     <string name="server_error_dialog_title">Server error</string>
@@ -32,6 +33,6 @@
     <string name="banned_user_dialog_message">You are banned from Smart City.</string>
 
     <string name="quit_title">Thank you !</string>
-    <string name="quit_message">Long text long text long text long text long text long text long</string>
+    <string name="quit_message">Thanks for helping us. Your entry will be handled as soon as possible.</string>
     <string name="quit_button">QUIT</string>
 </resources>

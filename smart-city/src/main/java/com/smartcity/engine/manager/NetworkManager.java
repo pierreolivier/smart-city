@@ -184,7 +184,7 @@ public class NetworkManager {
             e.printStackTrace();
         }
         Ion.with(Manager.activity())
-                .load(server + "/createDec?lon="+location.getLongitude()+"&type=1&lat="+location.getLatitude()+"&texte="+comment+"&adress="+address)
+                .load(server + "/createDec?lon="+location.getLongitude()+"&type=1&lat="+location.getLatitude()+"&texte="+comment+"&adresse="+address)
                 /*.uploadProgressDialog(p)
                 .uploadProgressHandler(new ProgressCallback() {
                     @Override

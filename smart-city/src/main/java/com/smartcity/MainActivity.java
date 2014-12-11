@@ -65,7 +65,8 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
+                rotation.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                //fos.write(data);
                 fos.close();
             } catch (FileNotFoundException e) {
                 Log.e("image", "File not found: " + e.getMessage());
